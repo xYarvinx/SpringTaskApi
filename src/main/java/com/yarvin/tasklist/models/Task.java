@@ -1,4 +1,4 @@
-package com.yarvin.tasklist.task;
+package com.yarvin.tasklist.models;
 
 import jakarta.persistence.*;
 

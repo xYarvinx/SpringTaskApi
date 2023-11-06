@@ -1,25 +1,30 @@
-package com.yarvin.tasklist.task;
+package com.yarvin.tasklist.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import com.yarvin.tasklist.services.TaskService;
+import com.yarvin.tasklist.models.Task;
+import com.yarvin.tasklist.task.Task;
+import com.yarvin.tasklist.task.TaskService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping(path = "api/task")
+@RequiredArgsConstructor
 public class TaskController {
 
 
     private final TaskService taskService ;
 
-    @Autowired
-    public TaskController(TaskService taskService) {
-        this.taskService = taskService;
-    }
 
     @GetMapping
     public List<Task> getTasks() {
         return taskService.getTasks();
+    }
+    @GetMapping("/taskId")
+    public Task getTask(@PathVariable long taskId){
+       return taskService.findTaskById(taskId);
     }
 
     @PostMapping

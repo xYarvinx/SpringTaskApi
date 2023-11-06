@@ -1,7 +1,9 @@
-package com.yarvin.tasklist.task;
+package com.yarvin.tasklist.services;
 
+import com.yarvin.tasklist.models.Task;
+import com.yarvin.tasklist.repo.TaskRepository;
 import jakarta.transaction.Transactional;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -9,13 +11,11 @@ import java.util.Optional;
 
 
 @Service
+@RequiredArgsConstructor
 public class TaskService {
 
     private final TaskRepository taskRepository;
-    @Autowired
-    public TaskService(TaskRepository taskRepository) {
-        this.taskRepository = taskRepository;
-    }
+
 
     public List<Task> getTasks() {
         return taskRepository.findAll();
@@ -52,4 +52,7 @@ public class TaskService {
     }
 
 
+    public Task findTaskById(long taskId) {
+        return taskRepository.findById(taskId).orElseThrow(()-> new IllegalStateException("Задача с id" + taskId +"не существует"));
+    }
 }
