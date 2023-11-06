@@ -2,8 +2,6 @@ package com.yarvin.tasklist.controller;
 
 import com.yarvin.tasklist.services.TaskService;
 import com.yarvin.tasklist.models.Task;
-import com.yarvin.tasklist.task.Task;
-import com.yarvin.tasklist.task.TaskService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 

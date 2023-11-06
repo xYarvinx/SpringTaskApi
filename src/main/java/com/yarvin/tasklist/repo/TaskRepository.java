@@ -1,7 +1,6 @@
 package com.yarvin.tasklist.repo;
 
 import com.yarvin.tasklist.models.Task;
-import com.yarvin.tasklist.task.Task;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
