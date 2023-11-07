@@ -1,4 +1,4 @@
-FROM ubuntu:latest
-LABEL authors="Jaroslav"
+FROM openjdk:21
+ADD ./target/TaskList-0.0.1-SNAPSHOT.jar backend.jar
 
-ENTRYPOINT ["top", "-b"]
+ENTRYPOINT ["java", "-jar", "backend.jar"]
