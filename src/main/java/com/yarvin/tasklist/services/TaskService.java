@@ -1,5 +1,9 @@
 package com.yarvin.tasklist.services;
 
+import com.yarvin.tasklist.dto.TaskDto;
+import com.yarvin.tasklist.exceptions.ExistException;
+import com.yarvin.tasklist.exceptions.NullException;
+import com.yarvin.tasklist.mapper.TaskMapper;
 import com.yarvin.tasklist.models.Task;
 import com.yarvin.tasklist.repo.TaskRepository;
 import jakarta.transaction.Transactional;
@@ -9,37 +13,36 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
-
 @Service
 @RequiredArgsConstructor
 public class TaskService {
 
     private final TaskRepository taskRepository;
+    private final TaskMapper taskMapper;
 
-
-    public List<Task> getTasks() {
-        return taskRepository.findAll();
+    public List<TaskDto> getTasks() {
+        return taskMapper.toDto(taskRepository.findAll());
     }
 
     public void addNewTask(Task task) {
-        if(task.getText().isEmpty() ) {
-            throw new IllegalStateException("Поле текста пусто");
+        if (task.getText().isEmpty()) {
+            throw new NullException(NullException.NULL_TEXT);
         }
-        if( task.getTitle().isEmpty()){
-            throw new IllegalStateException("Поле Заголовка пусто");
+        if (task.getTitle().isEmpty()) {
+            throw new NullException(NullException.NULL_TITLE);
         }
 
         Optional<Task> taskByTitle = taskRepository.findTaskByTitle(task.getTitle());
-        if(taskByTitle.isPresent()){
-            throw new IllegalStateException("Такая задача уже сущесвтует");
+        if (taskByTitle.isPresent()) {
+            throw new ExistException(ExistException.TASK_EXIST);
         }
 
         taskRepository.save(task);
     }
 
     public void deleteTask(Long id) {
-        if(!taskRepository.existsById(id)){
-            throw new IllegalStateException("Задачи с id " + id +" не существует");
+        if (!taskRepository.existsById(id)) {
+            throw new NullException(id);
         }
         taskRepository.deleteById(id);
     }
@@ -47,12 +50,12 @@ public class TaskService {
     @Transactional
     public void updateTask(Long taskId, boolean done) {
         Task task = taskRepository.findById(taskId)
-                .orElseThrow(() -> new IllegalStateException("Задачи с id " + taskId +" не существует"));
+                .orElseThrow(() -> new NullException(taskId));
         task.setDone(done);
     }
 
-
     public Task findTaskById(long taskId) {
-        return taskRepository.findById(taskId).orElseThrow(()-> new IllegalStateException("Задача с id" + taskId +"не существует"));
+        return taskRepository.findById(taskId)
+                .orElseThrow(() -> new NullException(taskId));
     }
 }
