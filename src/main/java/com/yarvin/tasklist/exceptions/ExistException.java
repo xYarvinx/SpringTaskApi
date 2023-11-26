@@ -4,5 +4,5 @@ public class ExistException extends RuntimeException{
     public ExistException (String message){
         super(message);
     }
-    public static final String TASK_EXIST = "Поле текста пусто";
+    public static final String TASK_EXIST = "Такая задача уже существует";
 }

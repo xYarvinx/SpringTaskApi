@@ -1,4 +1,4 @@
-package com.yarvin.tasklist.mapper;
+package com.yarvin.tasklist.config.mapper;
 
 import com.yarvin.tasklist.dto.TaskDto;
 import com.yarvin.tasklist.models.Task;

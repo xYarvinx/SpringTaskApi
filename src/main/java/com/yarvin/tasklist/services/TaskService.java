@@ -3,7 +3,7 @@ package com.yarvin.tasklist.services;
 import com.yarvin.tasklist.dto.TaskDto;
 import com.yarvin.tasklist.exceptions.ExistException;
 import com.yarvin.tasklist.exceptions.NullException;
-import com.yarvin.tasklist.mapper.TaskMapper;
+import com.yarvin.tasklist.config.mapper.TaskMapper;
 import com.yarvin.tasklist.models.Task;
 import com.yarvin.tasklist.repo.TaskRepository;
 import jakarta.transaction.Transactional;
